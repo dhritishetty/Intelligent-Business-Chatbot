@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 550px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 80vh;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f1f3f4;
+            border-bottom: 1px solid #e0e0e0;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #e0e0e0;
+            background: #ffffff;
+            padding: 10px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 25px;
+            outline: none;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .chat-input input:focus {
+            border-color: #007bff;
+        }
+        .chat-input button {
+            padding: 12px 20px;
+            background: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            transition: background 0.3s ease;
+        }
+        .chat-input button:hover {
+            background: #0056b3;
+        }
+        .chat-message {
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+        .chat-message p {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 20px;
+            max-width: 75%;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+        .chat-message.user p {
+            background: #007bff;
+            color: #ffffff;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+        .chat-message.bot p {
+            background: #ffffff;
+            color: #333333;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function appendMessage(message, className) {
+            const chatBox = document.getElementById('chat-box');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', className);
+            messageElement.innerHTML = `<p>${message}</p>`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            if (message === "") return; // Do nothing if message is empty
+
+            appendMessage(message, 'user');
+            userInput.value = '';
+
+            // Mocking bot response for demo purposes
+            // Replace this with your fetch call in production
+            setTimeout(() => {
+                const botResponse = "This is a bot response!";
+                appendMessage(botResponse, 'bot');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
